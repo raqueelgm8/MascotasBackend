@@ -3,6 +3,15 @@ package com.init.mascotas.entities;
 import java.util.Arrays;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name="animal")
 public class Animal {
@@ -23,7 +32,7 @@ public class Animal {
 	private String nombre;
 	@Column(name="RAZA")
 	private String raza;
-	@Column(name="TIPO_ANIMAL")
+	@Column(name="TIPOANIMAL")
 	private String tipoAnimal;
 	@Column(name="TIPO_EDAD")
 	private String tipoedad;
