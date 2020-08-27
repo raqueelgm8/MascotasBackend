@@ -15,7 +15,7 @@ import com.init.mascotas.dao.AnimalDAO;
 import com.init.mascotas.entities.Animal;
 
 @RestController
-@RequestMapping("api/animales")
+@RequestMapping("api")
 public class MascotasREST {
 
 	@Autowired
