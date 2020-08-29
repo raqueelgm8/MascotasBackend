@@ -23,31 +23,34 @@ public class Usuario implements Serializable {
 
 	private String apellidos;
 
-	@Column(name="APELLIDOS_USUARIO")
-	private String apellidosUsuario;
-
-	@Column(name="CODIGO_POSTAL")
+	@Column(name="CODIGOPOSTAL")
 	private String codigoPostal;
 
+	@Column(name="DIRECCION")
 	private String direccion;
 
+	@Column(name="DNI")
 	private String dni;
 
+	@Column(name="EDAD")
 	private int edad;
 
+	@Column(name="EMAIL")
 	private String email;
 
+	@Column(name="NOMBRE")
 	private String nombre;
 
-	@Column(name="NOMBRE_USUARIO")
-	private String nombreUsuario;
-
+	@Column(name="PASSWORD")
 	private String password;
 
+	@Column(name="PROVINCIA")
 	private String provincia;
 
+	@Column(name="SEXO")
 	private String sexo;
 
+	@Column(name="TELEFONO")
 	private String telefono;
 
 	//bi-directional many-to-one association to Pedido
@@ -56,7 +59,7 @@ public class Usuario implements Serializable {
 
 	//bi-directional many-to-one association to Solicitud
 	@OneToMany(mappedBy="usuario")
-	private List<Solicitud> solicituds;
+	private List<Solicitud> solicitudes;
 
 	public Usuario() {
 	}
@@ -75,14 +78,6 @@ public class Usuario implements Serializable {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-
-	public String getApellidosUsuario() {
-		return this.apellidosUsuario;
-	}
-
-	public void setApellidosUsuario(String apellidosUsuario) {
-		this.apellidosUsuario = apellidosUsuario;
 	}
 
 	public String getCodigoPostal() {
@@ -131,14 +126,6 @@ public class Usuario implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getNombreUsuario() {
-		return this.nombreUsuario;
-	}
-
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
 	}
 
 	public String getPassword() {
@@ -196,11 +183,11 @@ public class Usuario implements Serializable {
 	}
 
 	public List<Solicitud> getSolicituds() {
-		return this.solicituds;
+		return this.solicitudes;
 	}
 
 	public void setSolicituds(List<Solicitud> solicituds) {
-		this.solicituds = solicituds;
+		this.solicitudes = solicituds;
 	}
 
 	public Solicitud addSolicitud(Solicitud solicitud) {
