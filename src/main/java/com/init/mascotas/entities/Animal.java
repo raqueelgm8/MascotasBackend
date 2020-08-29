@@ -34,9 +34,10 @@ public class Animal {
 	private String raza;
 	@Column(name="TIPOANIMAL")
 	private String tipoAnimal;
-	@Column(name="TIPO_EDAD")
+	@Column(name="TIPOEDAD")
 	private String tipoedad;
-
+	@Column(name="SEXO")
+	private String sexo;
 	//bi-directional many-to-one association to Solicitud
 	// @OneToMany(mappedBy="animal")
 	// private List<Solicitud> solicituds;
@@ -67,6 +68,13 @@ public class Animal {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public int getEdad() {

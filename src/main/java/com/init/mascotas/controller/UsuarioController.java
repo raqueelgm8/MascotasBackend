@@ -1,4 +1,4 @@
-package com.init.mascotas.servicios;
+package com.init.mascotas.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,25 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.init.mascotas.dao.UsuarioDAO;
+
 import com.init.mascotas.entities.Usuario;
+import com.init.mascotas.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("api/usuarios")
-public class UsuarioREST {
+public class UsuarioController {
 	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private UsuarioRepository usuarioRepository;
 	
 	// Devuelve todos los usuarios
 	@RequestMapping(value="usuarios", method=RequestMethod.GET)
 	public ResponseEntity<List<Usuario>> getUsuarios() {
-		List<Usuario> usuarios = usuarioDAO.findAll();
+		List<Usuario> usuarios = usuarioRepository.findAll();
 		return ResponseEntity.ok(usuarios);
 	}
 	// Devuelve usuario por su id
 	@RequestMapping(value="{id}", method=RequestMethod.GET)
 	public ResponseEntity<Usuario> getComboById(@PathVariable("id") Integer id) {
-		Optional<Usuario> optionalUsuario = usuarioDAO.findById(id);
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 		if (optionalUsuario.isPresent()) {
 			return ResponseEntity.ok(optionalUsuario.get());
 		} else {
