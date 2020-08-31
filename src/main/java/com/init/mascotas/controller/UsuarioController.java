@@ -73,8 +73,14 @@ public class UsuarioController {
 		return usuarioRepository.save(user);
 		// return (Usuario) usuarioRepository.crearUsuario(nombre, apellidos, email, pass, sexo, dni, edad, direccion, provincia, codigoPostal, telefono);
 	}
+	// Último id
 	@GetMapping("/ultimoId")
 	public int obtenerUltimoId() {
 		return usuarioRepository.obtenerUltimoId();
+	}
+	// Eliminar usuario por id
+	@RequestMapping(value="/eliminarUsuario/{id}", method=RequestMethod.GET)
+	public void eliminarUsuario(@PathVariable("id") Integer id) {
+		this.usuarioRepository.deleteById(id);
 	}
 }
