@@ -79,7 +79,7 @@ public class UsuarioController {
 		return usuarioRepository.obtenerUltimoId();
 	}
 	// Eliminar usuario por id
-	@RequestMapping(value="/eliminarUsuario/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/eliminarUsuario/{id}", method=RequestMethod.DELETE)
 	public void eliminarUsuario(@PathVariable("id") Integer id) {
 		this.usuarioRepository.deleteById(id);
 	}

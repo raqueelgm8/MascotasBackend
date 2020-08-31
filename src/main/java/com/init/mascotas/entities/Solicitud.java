@@ -34,14 +34,14 @@ public class Solicitud implements Serializable {
 	private byte terraza;
 
 	//bi-directional many-to-one association to Animal
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="ID_ANIMAL", insertable = false, updatable = false)
 	private Animal animal;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="ID_USUARIO", insertable = false, updatable = false)
-	private Usuario usuario;
+	private Usuario usuario;*/
 
 	public Solicitud() {
 	}
@@ -110,7 +110,7 @@ public class Solicitud implements Serializable {
 		this.terraza = terraza;
 	}
 
-	public Animal getAnimal() {
+	/*public Animal getAnimal() {
 		return this.animal;
 	}
 
@@ -124,6 +124,6 @@ public class Solicitud implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
+	}*/
 
 }

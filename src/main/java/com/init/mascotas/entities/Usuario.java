@@ -53,13 +53,13 @@ public class Usuario implements Serializable {
 	@Column(name="TELEFONO")
 	private String telefono;
 
-	//bi-directional many-to-one association to Pedido
+	/*//bi-directional many-to-one association to Pedido
 	@OneToMany(mappedBy="usuario")
 	private List<Pedido> pedidos;
 
 	//bi-directional many-to-one association to Solicitud
 	@OneToMany(mappedBy="usuario")
-	private List<Solicitud> solicitudes;
+	private List<Solicitud> solicitudes;*/
 
 	public Usuario() {
 	}
@@ -160,7 +160,7 @@ public class Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<Pedido> getPedidos() {
+	/*public List<Pedido> getPedidos() {
 		return this.pedidos;
 	}
 
@@ -202,6 +202,6 @@ public class Usuario implements Serializable {
 		solicitud.setUsuario(null);
 
 		return solicitud;
-	}
+	}*/
 
 }
