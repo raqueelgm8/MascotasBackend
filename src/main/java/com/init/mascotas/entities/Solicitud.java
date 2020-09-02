@@ -31,6 +31,12 @@ public class Solicitud implements Serializable {
 	@Column(name="RAZON_ADOPCION")
 	private String razonAdopcion;
 
+	@Column(name="NOMBREANIMAL")
+	private String nombreAnimal;
+	
+	@Column(name="TIPOANIMAL")
+	private String tipoAnimal;
+	
 	private byte terraza;
 
 	//bi-directional many-to-one association to Animal
@@ -44,6 +50,22 @@ public class Solicitud implements Serializable {
 	private Usuario usuario;*/
 
 	public Solicitud() {
+	}
+
+	public String getNombreAnimal() {
+		return nombreAnimal;
+	}
+
+	public void setNombreAnimal(String nombreAnimal) {
+		this.nombreAnimal = nombreAnimal;
+	}
+
+	public String getTipoAnimal() {
+		return tipoAnimal;
+	}
+
+	public void setTipoAnimal(String tipoAnimal) {
+		this.tipoAnimal = tipoAnimal;
 	}
 
 	public SolicitudPK getId() {

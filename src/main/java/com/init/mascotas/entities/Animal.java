@@ -9,8 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @Entity
 @Table(name="animal")
