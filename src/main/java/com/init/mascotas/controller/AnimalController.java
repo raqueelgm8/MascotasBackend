@@ -48,4 +48,13 @@ public class AnimalController {
 			return ResponseEntity.noContent().build();
 		}
 	}
+	// Último id
+	/*@GetMapping("/ultimoId")
+	public int obtenerUltimoId() {
+		return animalRepository.obtenerUltimoId();
+	}*/
+	/*@RequestMapping(value = "/guardarAnimal", method = RequestMethod.POST)
+    public Animal guardarAnimal(@Valid @RequestBody Animal animal) {
+        return this.animalRepository.guardarAnimal(animal);
+    }*/
 }

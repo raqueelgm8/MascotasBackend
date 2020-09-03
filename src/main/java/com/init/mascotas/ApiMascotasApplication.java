@@ -19,7 +19,7 @@ public class ApiMascotasApplication {
 	                public void addCorsMappings(CorsRegistry registry) {
 	                        registry.addMapping("/api/**")
 	                                .allowedOrigins("http://localhost:4200")
-	                                .allowedMethods("“GET”, “POST”, “PUT”, “DELETE")
+	                                .allowedMethods("“GET”, “POST”, “PUT”, “DELETE”")
 	                                .maxAge(3600);
 	                }
 	        };

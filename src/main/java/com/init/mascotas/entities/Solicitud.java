@@ -131,7 +131,6 @@ public class Solicitud implements Serializable {
 	public void setTerraza(byte terraza) {
 		this.terraza = terraza;
 	}
-
 	/*public Animal getAnimal() {
 		return this.animal;
 	}
