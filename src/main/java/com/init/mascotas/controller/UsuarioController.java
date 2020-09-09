@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,8 @@ public class UsuarioController {
         return usuarioRepository.usuarioPorEmailPass(email, pass);
     }
 	// Crea un usuario
-	@GetMapping("/crearUsuario/{nombre}/{apellidos}/{email}/{pass}/{sexo}/{dni}/{edad}/{direccion}/{provincia}/{codigoPostal}/{telefono}")
+	@PostMapping("/crearUsuario/{nombre}/{apellidos}/{email}/{pass}/{sexo}/{dni}/{edad}/{direccion}/{provincia}/{codigoPostal}/{telefono}")
+	@CrossOrigin(origins = "http://localhost:4200")
 	Usuario crearUsuario(
 			@PathVariable(value="nombre") String nombre,
 			@PathVariable(value="apellidos") String apellidos, 
