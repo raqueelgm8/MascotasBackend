@@ -3,6 +3,7 @@ package com.init.mascotas.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -24,4 +25,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, Crud
 	
 	@Query(value= "SELECT max(ID_USUARIO) FROM USUARIO", nativeQuery = true)
 	Integer obtenerUltimoId();
+	
+	/*@Modifying
+	@Query(value="UPDATE Usuario user" + 
+			" SET nombre = :user.nombre, apellidos= :user.apellidos, email= :user.email, password = :user.password, sexo = :user.sexo,"
+			+ " dni = :user.dni, edad = user.edad, direccion = :user.direccion, provincia = :user.provincia, codigoPostal = user.codigoPostal,"
+			+ " telefono = :user.telefono, id_usuario = :id" + 
+			" WHERE id_usuario = :id;",nativeQuery = true)
+	Usuario editarUsuario(Integer id, Usuario user);*/
 }
