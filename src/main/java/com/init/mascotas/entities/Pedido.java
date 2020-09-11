@@ -21,25 +21,39 @@ public class Pedido implements Serializable {
 
 	private String apellidos;
 
-	@Column(name="CODIGO_POSTAL")
+	@Column(name="CODIGOPOSTAL")
 	private String codigoPostal;
 
+	@Column(name="DIRECCION")
 	private String direccion;
 
+	@Column(name="EMAIL")
 	private String email;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="FECHA_PEDIDO")
+	@Column(name="FECHAPEDIDO")
 	private Date fechaPedido;
 
+	@Column(name="METODOPAGO")
 	private String metodopago;
 
+	@Column(name="NOMBRE")
 	private String nombre;
 
+	@Column(name="PROVINCIA")
 	private String provincia;
 
+	@Column(name="TELEFONO")
 	private String telefono;
 
+	@Column(name="TOTAL")
+	private double total;
+	
+	@Column(name="ESTADOPEDIDO")
+	private String estadoPedido;
+	
+	
+	
 	/*//bi-directional many-to-one association to DetallePedido
 	@OneToMany(mappedBy="pedido")
 	private List<DetallePedido> detallePedidos;
@@ -132,6 +146,26 @@ public class Pedido implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public String getEstadoPedido() {
+		return estadoPedido;
+	}
+
+	public void setEstadoPedido(String estadoPedido) {
+		this.estadoPedido = estadoPedido;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	/*public List<DetallePedido> getDetallePedidos() {
 		return this.detallePedidos;
 	}
