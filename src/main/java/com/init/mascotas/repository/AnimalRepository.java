@@ -1,6 +1,7 @@
 package com.init.mascotas.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,15 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
 	
 	@Query(value= "SELECT max(ID_ANIMAL) FROM ANIMAL", nativeQuery = true)
 	Integer obtenerUltimoId();
+	
+
+	@Query(value = "SELECT * FROM ANIMAL u WHERE u.tipoanimal LIKE :tipoAnimal AND u.raza LIKE :raza", nativeQuery = true)
+	List<Animal> buscarAnimalFiltro(String tipoAnimal, String raza);
+	
+	// (:sexo is null or u.sexo LIKE :sexo)
+	@Query(value = "SELECT * FROM ANIMAL u WHERE u.tipoanimal LIKE :tipoAnimal AND (:raza is null or u.raza LIKE :raza)"
+			+ "AND (:tipoEdad is null or u.tipoedad LIKE :tipoEdad) AND (:edad is null or u.edad >= :edad)"
+			+ " AND (:adoptado is null or u.adoptado = :adoptado) AND (:sexo is null or u.sexo LIKE :sexo)", nativeQuery = true)
+	List<Animal> findByAllAtributtes(String tipoAnimal, String raza,
+			Integer edad, String tipoEdad, Boolean adoptado, String sexo);
 }

@@ -3,12 +3,16 @@ package com.init.mascotas.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.init.mascotas.dto.AnimalRequest;
 import com.init.mascotas.entities.Animal;
+import com.init.mascotas.entities.FiltroAnimal;
+import com.init.mascotas.entities.Usuario;
 import com.init.mascotas.repository.AnimalRepository;
 
 
@@ -54,4 +60,37 @@ public class AnimalController {
 	public void eliminarAnimal(@PathVariable("id") Integer id) {
 		this.animalRepository.deleteById(id);
 	}
+	/*@GetMapping(path={
+				"/buscarAnimalFiltro/{tipo}/{raza}/{edad}/{tipoEdad}/{adoptado}/{sexo}",
+				"/buscarAnimalFiltro/{tipo}",
+				"/buscarAnimalFiltro/{tipo}/{raza}",
+				"/buscarAnimalFiltro/{tipo}/{raza}/{edad}",
+				"/buscarAnimalFiltro/{tipo}/{raza}/{edad}/{tipoEdad}", 
+				"/buscarAnimalFiltro/{tipo}/{raza}/{edad}/{tipoEdad}/{adoptado}",
+				"/buscarAnimalFiltro/{tipo}/{edad}",
+				"/buscarAnimalFiltro/{tipo}/{edad}/{tipoEdad}",
+				"/buscarAnimalFiltro/{tipo}/{edad}/{tipoEdad}/{adoptado}",
+				"/buscarAnimalFiltro/{tipo}/{edad}/{tipoEdad}/{adoptado}/{sexo}",
+				"/buscarAnimalFiltro/{tipo}/{tipoEdad}",
+				"/buscarAnimalFiltro/{tipo}/{tipoEdad}/{adoptado}",
+				"/buscarAnimalFiltro/{tipo}/{tipoEdad}/{adoptado}/{sexo}",
+				"/buscarAnimalFiltro/{tipo}/{adoptado}",
+				"/buscarAnimalFiltro/{tipo}/{adoptado}/{sexo}",
+				"/buscarAnimalFiltro/{tipo}/{sexo}"})
+	public List<Animal> buscarAnimalFiltro(@PathVariable("tipo") String tipo, @PathVariable(required = false) Optional<String> raza,
+			@PathVariable(required = false) Optional<Integer> edad,
+			@PathVariable(required = false) Optional<String> tipoEdad, 
+			@PathVariable(required = false) Optional<Boolean> adoptado, 
+			@PathVariable(required = false) Optional<String> sexo) {
+		
+		return animalRepository.findByAllAtributtes(tipo, raza, edad, tipoEdad, adoptado, sexo);
+	}*/
+	@GetMapping(path={"/buscarAnimalFiltro/{tipo}",})
+	@CrossOrigin(origins = "http://localhost:4200")
+public List<Animal> buscarAnimalFiltro(@PathVariable("tipo") String tipo, @RequestParam(required = false) String raza,
+		@RequestParam(required = false) Integer edad, @RequestParam(required = false) String tipoEdad,
+		@RequestParam(required = false) Boolean adoptado, @RequestParam(required = false) String sexo) {
+	
+	return animalRepository.findByAllAtributtes(tipo, raza, edad, tipoEdad, adoptado, sexo);
+}
 }
