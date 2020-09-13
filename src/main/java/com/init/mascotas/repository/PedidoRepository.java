@@ -1,14 +1,11 @@
 package com.init.mascotas.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-import com.init.mascotas.controller.PedidoController;
+import com.init.mascotas.entities.Pedido;
+import com.init.mascotas.entities.PedidoPK;
 
-@RestController
-@RequestMapping("api/pedidos")
-public class PedidoRepository {
-	@Autowired
-	private PedidoController pedidoController;
+public interface PedidoRepository extends JpaRepository<Pedido, PedidoPK>, CrudRepository<Pedido, PedidoPK>{
+
 }

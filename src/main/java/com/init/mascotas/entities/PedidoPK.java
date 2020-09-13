@@ -15,10 +15,14 @@ public class PedidoPK implements Serializable {
 	@Column(name="ID_USUARIO", insertable=false, updatable=false)
 	private int idUsuario;
 
-	@Column(name="ID_PEDIDO")
+	@Column(name="ID_PEDIDO", insertable=false, updatable=false)
 	private int idPedido;
 
 	public PedidoPK() {
+	}
+	public PedidoPK(int idUsuario, int idPedido) {
+		this.idPedido = idUsuario;
+		this.idPedido = idPedido;
 	}
 	public int getIdUsuario() {
 		return this.idUsuario;

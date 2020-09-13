@@ -13,4 +13,7 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, SolicitudP
 	
 	@Query(value = "SELECT * FROM SOLICITUD u WHERE u.id_usuario = :idUsuario", nativeQuery = true)
 	List<Solicitud> solicitudesPorIdUsuario(Integer idUsuario);
+	
+	@Query(value= "SELECT max(ID_SOLICITUD) FROM SOLICITUD", nativeQuery = true)
+	Integer obtenerUltimoId();
 }

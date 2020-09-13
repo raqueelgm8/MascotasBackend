@@ -18,17 +18,22 @@ public class Solicitud implements Serializable {
 	@EmbeddedId
 	private SolicitudPK id;
 
+	@Column(name="ESTADO")
 	private String estado;
 
-	private String horariotrabajo;
+	@Column(name="HORARIOTRABAJO")
+	private String horarioTrabajo;
 
+	@Column(name="JARDIN")
 	private byte jardin;
 
+	@Column(name="MASCOTASCASA")
 	private byte mascotascasa;
 
+	@Column(name="MIEMBROSFAMILIA")
 	private String miembrosfamilia;
 
-	@Column(name="RAZON_ADOPCION")
+	@Column(name="RAZONADOPCION")
 	private String razonAdopcion;
 
 	@Column(name="NOMBREANIMAL")
@@ -37,6 +42,7 @@ public class Solicitud implements Serializable {
 	@Column(name="TIPOANIMAL")
 	private String tipoAnimal;
 	
+	@Column(name="TERRAZA")
 	private byte terraza;
 
 	//bi-directional many-to-one association to Animal
@@ -85,11 +91,11 @@ public class Solicitud implements Serializable {
 	}
 
 	public String getHorariotrabajo() {
-		return this.horariotrabajo;
+		return this.horarioTrabajo;
 	}
 
 	public void setHorariotrabajo(String horariotrabajo) {
-		this.horariotrabajo = horariotrabajo;
+		this.horarioTrabajo = horariotrabajo;
 	}
 
 	public byte getJardin() {
