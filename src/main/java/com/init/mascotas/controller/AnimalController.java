@@ -32,6 +32,7 @@ public class AnimalController {
 	@Autowired
 	private AnimalRepository animalRepository;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/guardarAnimal")
     public Animal placeOrder(@RequestBody AnimalRequest request){
        return animalRepository.save(request.getAnimal());

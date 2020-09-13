@@ -20,28 +20,59 @@ public class Producto implements Serializable {
 	@Column(name="ID_PRODUCTO")
 	private int idProducto;
 
+	@Column(name="CATEGORIA")
 	private String categoria;
 
+	@Column(name="DESCRIPCION")
 	private String descripcion;
 
+	@Column(name="NOMBRE")
 	private String nombre;
 
+	@Column(name="PRECIO")
 	private double precio;
 
+	@Column(name="STOCK")
 	private int stock;
 
-	@Column(name="TIPO_ANIMAL")
+	@Column(name="TIPOANIMAL")
 	private String tipoAnimal;
 
-	//bi-directional many-to-one association to DetallePedido
-	@OneToMany(mappedBy="producto")
-	private List<DetallePedido> detallePedidos;
+	@Column(name="CANTIDAD")
+	private int cantidad;
+	
+	@Column(name="IMAGEN")
+	@Lob
+	private byte[] imagen;
+	// bi-directional many-to-one association to DetallePedido
+	// @OneToMany(mappedBy="producto")
+	// private List<DetallePedido> detallePedidos;
 
 	public Producto() {
 	}
 
 	public int getIdProducto() {
 		return this.idProducto;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setIdProducto(int idProducto) {
@@ -96,7 +127,7 @@ public class Producto implements Serializable {
 		this.tipoAnimal = tipoAnimal;
 	}
 
-	public List<DetallePedido> getDetallePedidos() {
+	/*public List<DetallePedido> getDetallePedidos() {
 		return this.detallePedidos;
 	}
 
@@ -116,6 +147,6 @@ public class Producto implements Serializable {
 		detallePedido.setProducto(null);
 
 		return detallePedido;
-	}
+	}*/
 
 }
