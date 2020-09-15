@@ -36,10 +36,10 @@ public class Solicitud implements Serializable {
 	@Column(name="RAZONADOPCION")
 	private String razonAdopcion;
 
-	@Column(name="NOMBREANIMAL")
+	@Column(name="NOMBREANIMAL", updatable = false)
 	private String nombreAnimal;
 	
-	@Column(name="TIPOANIMAL")
+	@Column(name="TIPOANIMAL", updatable = false)
 	private String tipoAnimal;
 	
 	@Column(name="TERRAZA")

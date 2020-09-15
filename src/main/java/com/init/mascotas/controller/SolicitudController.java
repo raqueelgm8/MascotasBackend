@@ -3,12 +3,15 @@ package com.init.mascotas.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,5 +64,23 @@ public class SolicitudController {
 	@GetMapping("/ultimoId")
 	public int obtenerUltimoId() {
 		return solicitudRepository.obtenerUltimoId();
+	}
+	// Editar solicitud por id
+	@PutMapping(value="/editarSolicitud")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Solicitud editarUsuario(@Valid @RequestBody Solicitud solicitud) {
+		/*SolicitudPK pk = solicitud.getId();
+		Solicitud solicitudUpdate = solicitudRepository.findById(pk).get();
+		solicitudUpdate.setEstado(solicitud.getEstado());
+		solicitudUpdate.setHorariotrabajo(solicitud.getHorariotrabajo());
+		solicitudUpdate.setJardin(solicitud.getJardin());
+		solicitudUpdate.setMascotascasa(solicitud.getMascotascasa());
+		solicitudUpdate.setMiembrosfamilia(solicitud.getMiembrosfamilia());
+		solicitudUpdate.setNombreAnimal(solicitud.getNombreAnimal());
+		solicitudUpdate.setRazonAdopcion(solicitud.getRazonAdopcion());
+		solicitudUpdate.setTerraza(solicitud.getTerraza());
+		solicitudUpdate.setTipoAnimal(solicitud.getTipoAnimal());*/
+	    Solicitud solicitudUpdated = solicitudRepository.save(solicitud);
+	    return solicitudUpdated;
 	}
 }
