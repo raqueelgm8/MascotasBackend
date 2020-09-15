@@ -62,12 +62,13 @@ public class PedidoController {
 	@PostMapping("/guardarPedido")
     public Pedido guardarSolicitud(@RequestBody Pedido guardarPedido){
 		PedidoPK pk = guardarPedido.getId();
-		pk.setIdPedido(obtenerUltimoId());
+		pk.setIdPedido(obtenerUltimoId() + 1);
 		pk.setIdUsuario(guardarPedido.getId().getIdUsuario());
 		guardarPedido.setId(pk);
 		System.out.println(pk.toString());
 		System.out.println(guardarPedido);
        return pedidoRepository.save(guardarPedido);
+       // habría que generar los detalle pedidos
     }
 	// Último id
 	@GetMapping("/ultimoId")
