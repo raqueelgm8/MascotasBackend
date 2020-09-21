@@ -19,6 +19,7 @@ public class Pedido implements Serializable {
 	@EmbeddedId
 	private PedidoPK id;
 
+	@Column(name="APELLIDOS")
 	private String apellidos;
 
 	@Column(name="CODIGOPOSTAL")
@@ -35,7 +36,7 @@ public class Pedido implements Serializable {
 	private Date fechaPedido;
 
 	@Column(name="METODOPAGO")
-	private String metodopago;
+	private String metodoPago;
 
 	@Column(name="NOMBRE")
 	private String nombre;
@@ -53,13 +54,12 @@ public class Pedido implements Serializable {
 	private String estadoPedido;
 	
 	
-	
-	/*//bi-directional many-to-one association to DetallePedido
-	@OneToMany(mappedBy="pedido")
-	private List<DetallePedido> detallePedidos;
+	//bi-directional many-to-one association to DetallePedido
+	/*@OneToMany(mappedBy="pedido")
+	private List<DetallePedido> detallePedidos;*/
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="ID_USUARIO", insertable = false, updatable = false)
 	private Usuario usuario;*/
 
@@ -115,11 +115,11 @@ public class Pedido implements Serializable {
 	}
 
 	public String getMetodopago() {
-		return this.metodopago;
+		return this.metodoPago;
 	}
 
 	public void setMetodopago(String metodopago) {
-		this.metodopago = metodopago;
+		this.metodoPago = metodopago;
 	}
 
 	public String getNombre() {
@@ -165,16 +165,16 @@ public class Pedido implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	/*public List<DetallePedido> getDetallePedidos() {
+	/*
+	public List<DetallePedido> getDetallePedidos() {
 		return this.detallePedidos;
 	}
 
 	public void setDetallePedidos(List<DetallePedido> detallePedidos) {
 		this.detallePedidos = detallePedidos;
 	}
-
-	public DetallePedido addDetallePedido(DetallePedido detallePedido) {
+*/
+	/*public DetallePedido addDetallePedido(DetallePedido detallePedido) {
 		getDetallePedidos().add(detallePedido);
 		detallePedido.setPedido(this);
 
@@ -186,8 +186,8 @@ public class Pedido implements Serializable {
 		detallePedido.setPedido(null);
 
 		return detallePedido;
-	}
-
+	}*/
+/*
 	public Usuario getUsuario() {
 		return this.usuario;
 	}

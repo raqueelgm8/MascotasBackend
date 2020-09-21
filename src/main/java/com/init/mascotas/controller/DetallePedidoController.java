@@ -5,13 +5,18 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.mascotas.entities.DetallePedido;
 import com.init.mascotas.entities.DetallePedidoPK;
+import com.init.mascotas.entities.Pedido;
 import com.init.mascotas.entities.Usuario;
 import com.init.mascotas.repository.DetallePedidoRepository;
 
@@ -45,11 +50,33 @@ public class DetallePedidoController {
 			return ResponseEntity.noContent().build();
 		}
 	}
-	// 
+	// Devuelve los detalle pedido por idUsuario e idPedido
 	@RequestMapping(value="/detallesPedidoPorPedido/{idUsuario}/{idPedido}", method=RequestMethod.GET)
 	public List<DetallePedido> findDetallesPorPedido(
 			@PathVariable(value="idUsuario") Integer idUsuario,
 			@PathVariable(value="idPedido") Integer idPedido) {
 			return this.detallePedidoRepository.findDetallesPorPedido(idUsuario, idPedido);
+	}
+	// Guardar los Detalle Pedidp
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/guardarDetalles/{idUsuario}/{idPedido}")
+    public List<DetallePedido> guardarDetalles(
+    		@PathVariable(value="idUsuario") Integer idUsuario,
+			@PathVariable(value="idPedido") Integer idPedido,
+    		@RequestBody List<DetallePedido> detallesPedido){
+				if (detallesPedido.size() > 0) {
+					for (DetallePedido detallePedido: detallesPedido) {
+						System.out.println("he llegado aquí");
+						DetallePedidoPK pk = new DetallePedidoPK();
+						pk.setIdPedido(idPedido);
+						pk.setIdUsuario(idUsuario);
+						pk.setIdProducto(detallePedido.getId().getIdProducto());
+						detallePedido.setId(pk);
+						this.detallePedidoRepository.save(detallePedido);
+					}
+					return this.findDetallesPorPedido(idUsuario, idPedido);
+				} else {
+					return null;
+			}
 	}
 }

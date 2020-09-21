@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.mascotas.controller.PedidoController;
+import com.init.mascotas.entities.DetallePedido;
+import com.init.mascotas.entities.DetallePedidoPK;
 import com.init.mascotas.entities.Pedido;
 import com.init.mascotas.entities.PedidoPK;
 import com.init.mascotas.entities.Solicitud;
 import com.init.mascotas.entities.SolicitudPK;
+import com.init.mascotas.repository.DetallePedidoRepository;
 import com.init.mascotas.repository.PedidoRepository;
 
 @RestController
@@ -27,6 +30,9 @@ import com.init.mascotas.repository.PedidoRepository;
 public class PedidoController {
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private DetallePedidoController detallePedidoController;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getPedido/{idUsuario}/{idPedido}", method=RequestMethod.GET)
@@ -59,16 +65,18 @@ public class PedidoController {
 		return pedidoRepository.findPedidosUsuario(idUsuario);
 	}
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/guardarPedido")
-    public Pedido guardarSolicitud(@RequestBody Pedido guardarPedido){
-		PedidoPK pk = guardarPedido.getId();
-		pk.setIdPedido(obtenerUltimoId() + 1);
-		pk.setIdUsuario(guardarPedido.getId().getIdUsuario());
+	@PostMapping("/guardarPedido/{idUsuario}")
+    public Pedido guardarPedido(
+    		@PathVariable("idUsuario") Integer idUsuario,
+    		@RequestBody Pedido guardarPedido){
+		PedidoPK pk = new PedidoPK();
+		guardarPedido.setMetodopago("PayPal");
+		Integer ultimoIdPedido = this.obtenerUltimoId() + 1;
+		pk.setIdPedido(ultimoIdPedido);
+		pk.setIdUsuario(idUsuario);
 		guardarPedido.setId(pk);
-		System.out.println(pk.toString());
-		System.out.println(guardarPedido);
        return pedidoRepository.save(guardarPedido);
-       // habría que generar los detalle pedidos
+       
     }
 	// Último id
 	@GetMapping("/ultimoId")

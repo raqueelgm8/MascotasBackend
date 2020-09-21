@@ -23,7 +23,7 @@ public class DetallePedido implements Serializable {
 	@ManyToOne
 	@JoinColumns({
 		@JoinColumn(name="ID_PEDIDO", referencedColumnName="ID_PEDIDO", insertable = false, updatable = false),
-		@JoinColumn(name="ID_USUARIO", referencedColumnName="ID_USUARIO", insertable = false, updatable = false)
+		@JoinColumn(name="ID_USUARIO", referencedColumnName="ID_USUARIO", insertable = false, updatable = false),
 		})
 	private Pedido pedido;
 
@@ -51,14 +51,14 @@ public class DetallePedido implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public Pedido getPedido() {
+	/*public Pedido getPedido() {
 		return this.pedido;
 	}
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-
+	*/
 	public Producto getProducto() {
 		return this.producto;
 	}
