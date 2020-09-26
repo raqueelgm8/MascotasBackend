@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.init.mascotas.entities.Animal;
 import com.init.mascotas.entities.Producto;
 import com.init.mascotas.repository.ProductoRepository;
 
@@ -50,5 +51,19 @@ public class ProductoController {
 	public List<Producto> buscarAnimalFiltro(@RequestParam(required = false) String categoria,
 			@RequestParam(required = false) String tipoAnimal) {
 	return productoRepository.findProductoFiltrado(categoria, tipoAnimal);
+	}
+	// Guarda un producto
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/guardarProducto}")
+    public Producto guardarPedido(
+    		@RequestBody Producto producto){
+		producto.setIdProducto(this.obtenerUltimoId());
+       return productoRepository.save(producto);
+       
+	}
+	// Último id
+	@GetMapping("/ultimoId")
+	public int obtenerUltimoId() {
+		return productoRepository.obtenerUltimoIdPedido();
 	}
 }

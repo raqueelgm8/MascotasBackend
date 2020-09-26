@@ -16,4 +16,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>, Cr
 			+ "AND (:tipoAnimal is null or p.TIPOANIMAL LIKE :tipoAnimal) "
 			+ "ORDER BY p.tipoAnimal", nativeQuery = true)
 	List<Producto> findProductoFiltrado(String categoria, String tipoAnimal);
+	
+	@Query(value= "SELECT max(ID_PRODUCTO) FROM PRODUCTO", nativeQuery = true)
+	Integer obtenerUltimoIdPedido();
 }

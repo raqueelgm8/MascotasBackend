@@ -69,17 +69,6 @@ public class SolicitudController {
 	@PutMapping(value="/editarSolicitud")
 	@CrossOrigin(origins = "http://localhost:4200")
 	public Solicitud editarUsuario(@Valid @RequestBody Solicitud solicitud) {
-		/*SolicitudPK pk = solicitud.getId();
-		Solicitud solicitudUpdate = solicitudRepository.findById(pk).get();
-		solicitudUpdate.setEstado(solicitud.getEstado());
-		solicitudUpdate.setHorariotrabajo(solicitud.getHorariotrabajo());
-		solicitudUpdate.setJardin(solicitud.getJardin());
-		solicitudUpdate.setMascotascasa(solicitud.getMascotascasa());
-		solicitudUpdate.setMiembrosfamilia(solicitud.getMiembrosfamilia());
-		solicitudUpdate.setNombreAnimal(solicitud.getNombreAnimal());
-		solicitudUpdate.setRazonAdopcion(solicitud.getRazonAdopcion());
-		solicitudUpdate.setTerraza(solicitud.getTerraza());
-		solicitudUpdate.setTipoAnimal(solicitud.getTipoAnimal());*/
 	    Solicitud solicitudUpdated = solicitudRepository.save(solicitud);
 	    return solicitudUpdated;
 	}

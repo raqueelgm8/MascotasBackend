@@ -3,6 +3,8 @@ package com.init.mascotas.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,19 +12,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.mascotas.controller.PedidoController;
-import com.init.mascotas.entities.DetallePedido;
-import com.init.mascotas.entities.DetallePedidoPK;
 import com.init.mascotas.entities.Pedido;
 import com.init.mascotas.entities.PedidoPK;
 import com.init.mascotas.entities.Solicitud;
-import com.init.mascotas.entities.SolicitudPK;
-import com.init.mascotas.repository.DetallePedidoRepository;
 import com.init.mascotas.repository.PedidoRepository;
 
 @RestController
@@ -30,9 +29,6 @@ import com.init.mascotas.repository.PedidoRepository;
 public class PedidoController {
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	
-	@Autowired
-	private DetallePedidoController detallePedidoController;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/getPedido/{idUsuario}/{idPedido}", method=RequestMethod.GET)
@@ -70,7 +66,7 @@ public class PedidoController {
     		@PathVariable("idUsuario") Integer idUsuario,
     		@RequestBody Pedido guardarPedido){
 		PedidoPK pk = new PedidoPK();
-		guardarPedido.setMetodopago("PayPal");
+		// guardarPedido.setMetodopago("PayPal");
 		Integer ultimoIdPedido = this.obtenerUltimoId() + 1;
 		pk.setIdPedido(ultimoIdPedido);
 		pk.setIdUsuario(idUsuario);
@@ -78,6 +74,12 @@ public class PedidoController {
        return pedidoRepository.save(guardarPedido);
        
     }
+	// Editar Pedido por id
+	@PutMapping(value="/editarPedido")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Pedido editarPedido(@Valid @RequestBody Pedido pedido) {
+		return pedidoRepository.save(pedido);
+	}
 	// Último id
 	@GetMapping("/ultimoId")
 	public int obtenerUltimoId() {
