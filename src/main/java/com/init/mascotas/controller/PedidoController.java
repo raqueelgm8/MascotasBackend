@@ -85,4 +85,10 @@ public class PedidoController {
 	public int obtenerUltimoId() {
 		return pedidoRepository.obtenerUltimoIdPedido();
 	}
+	// Editar estado del pedido
+	@PutMapping(value="/updateEstado/{idUsuario}/{idPedido}/{estado}")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public void updateEstado(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idPedido") Integer idPedido, @PathVariable("estado") String estado) {
+		this.pedidoRepository.updateEstado(idUsuario, idPedido, estado);
+	}
 }
