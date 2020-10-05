@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.init.mascotas.controller.PedidoController;
 import com.init.mascotas.entities.Pedido;
 import com.init.mascotas.entities.PedidoPK;
-import com.init.mascotas.entities.Solicitud;
 import com.init.mascotas.repository.PedidoRepository;
 
 @RestController

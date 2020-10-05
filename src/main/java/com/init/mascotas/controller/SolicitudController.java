@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,9 +74,15 @@ public class SolicitudController {
 	    return solicitudUpdated;
 	}
 	// Editar estado del pedido
-		@PutMapping(value="/updateEstado/{idUsuario}/{idPedido}/{estado}")
-		@CrossOrigin(origins = "http://localhost:4200")
-		public void updateEstadoSolicitud(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idAnimal") Integer idAnimal ,@PathVariable("idSolicitud") Integer idSolicitud, @PathVariable("estado") String estado) {
-			this.solicitudRepository.updateEstadoSolicitud(idUsuario, idAnimal, idSolicitud, estado);
-		}
+	@PutMapping(value="/updateEstado/{idUsuario}/{idPedido}/{estado}")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public void updateEstadoSolicitud(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idAnimal") Integer idAnimal ,@PathVariable("idSolicitud") Integer idSolicitud, @PathVariable("estado") String estado) {
+		this.solicitudRepository.updateEstadoSolicitud(idUsuario, idAnimal, idSolicitud, estado);
+	}
+	// Devuelve todos las las solicitudes
+	@RequestMapping(value="solicitudes", method=RequestMethod.GET)
+	public ResponseEntity<List<Solicitud>> getUsuarios() {
+		List<Solicitud> solicitudes = this.solicitudRepository.findAll();
+		return ResponseEntity.ok(solicitudes);
+	}
 }
