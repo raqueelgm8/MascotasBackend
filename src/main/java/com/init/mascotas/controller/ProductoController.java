@@ -71,8 +71,21 @@ public class ProductoController {
 	// Editar Producto
 	@PutMapping(value="/editarProducto/{id}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public @Valid Producto editarAnimal(@PathVariable("id") Integer id, @Valid @RequestBody Producto producto) {
+	public @Valid Producto editarProducto(@PathVariable("id") Integer id, @Valid @RequestBody Producto producto) {
 		producto.setIdProducto(id);
 	    return productoRepository.save(producto);
+	}
+	// Restar Stock
+	public void restarStock(Integer idProducto, Integer cantidad) {
+		System.out.println("id productooo " + idProducto);
+		Optional<Producto> optionalProduct = productoRepository.findById(idProducto);
+		if (optionalProduct.isPresent()) {
+			System.out.println("he entrado");
+			ResponseEntity<Producto> producto = ResponseEntity.ok(optionalProduct.get());
+			System.out.println(producto.toString());
+			Producto product = producto.getBody();
+			product.setStock(product.getStock() - cantidad);
+			this.productoRepository.save(product);
+		}
 	}
 }

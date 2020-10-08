@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.init.mascotas.entities.DetallePedido;
 import com.init.mascotas.entities.DetallePedidoPK;
+import com.init.mascotas.entities.Producto;
 import com.init.mascotas.repository.DetallePedidoRepository;
+import com.init.mascotas.repository.ProductoRepository;
 
 @RestController
 @RequestMapping("api/detalles")
@@ -22,6 +24,9 @@ public class DetallePedidoController {
 	
 	@Autowired
 	private DetallePedidoRepository detallePedidoRepository;
+	
+	@Autowired
+	private ProductoRepository productoRepository;
 	
 	// Devuelve todos los detallesPedido
 	@RequestMapping(value="/detallesPedido", method=RequestMethod.GET)
@@ -62,12 +67,13 @@ public class DetallePedidoController {
     		@RequestBody List<DetallePedido> detallesPedido){
 				if (detallesPedido.size() > 0) {
 					for (DetallePedido detallePedido: detallesPedido) {
-						System.out.println("he llegado aquí");
 						DetallePedidoPK pk = new DetallePedidoPK();
 						pk.setIdPedido(idPedido);
 						pk.setIdUsuario(idUsuario);
 						pk.setIdProducto(detallePedido.getId().getIdProducto());
 						detallePedido.setId(pk);
+						System.out.println(detallePedido.getId().getIdProducto());
+						restarStock(detallePedido.getId().getIdProducto(), detallePedido.getCantidad());
 						this.detallePedidoRepository.save(detallePedido);
 					}
 					return this.findDetallesPorPedido(idUsuario, idPedido);
@@ -75,4 +81,17 @@ public class DetallePedidoController {
 					return null;
 			}
 	}
+	// Restar Stock
+		public void restarStock(Integer idProducto, Integer cantidad) {
+			System.out.println("id productooo " + idProducto);
+			Optional<Producto> optionalProduct = productoRepository.findById(idProducto);
+			if (optionalProduct.isPresent()) {
+				System.out.println("he entrado");
+				ResponseEntity<Producto> producto = ResponseEntity.ok(optionalProduct.get());
+				System.out.println(producto.toString());
+				Producto product = producto.getBody();
+				product.setStock(product.getStock() - cantidad);
+				this.productoRepository.save(product);
+			}
+		}
 }
