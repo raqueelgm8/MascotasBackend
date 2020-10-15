@@ -44,7 +44,7 @@ public class PedidoController {
 	}
 	@DeleteMapping(value="/eliminarPedido/{idUsuario}/{idPedido}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public void eliminarPedido(@PathVariable("id") Integer idUsuario, @PathVariable("id") Integer idPedido){
+	public void eliminarPedido(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idPedido") Integer idPedido){
 		PedidoPK pk = new PedidoPK(idUsuario, idPedido);
 		pk.setIdPedido(idPedido);
 		pk.setIdUsuario(idUsuario);
