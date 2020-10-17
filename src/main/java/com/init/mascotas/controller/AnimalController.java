@@ -30,8 +30,9 @@ public class AnimalController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/guardarAnimal")
-    public Animal placeOrder(@RequestBody AnimalRequest request){
-       return animalRepository.save(request.getAnimal());
+    public Animal placeOrder(@RequestBody Animal animal){
+		// animal.setIdAnimal(this.obtenerUltimoId() + 1);
+       return animalRepository.save(animal);
     }
 	@GetMapping("/animales")
 	public List<Animal> findAllAnimals() {
@@ -71,5 +72,10 @@ public class AnimalController {
 	public Animal editarAnimal(@PathVariable("id") Integer id, @Valid @RequestBody Animal animal) {
 		animal.setIdAnimal(id);
 	    return animalRepository.save(animal);
+	}
+	// Último id
+	@GetMapping("/ultimoId")
+	public int obtenerUltimoId() {
+		return animalRepository.obtenerUltimoId();
 	}
 }

@@ -31,4 +31,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
 			+ "ORDER BY u.raza", nativeQuery = true)
 	List<Animal> findByAllAtributtes(String tipoAnimal, String raza,
 			Integer edad, String tipoEdad, Boolean adoptado, String sexo);
+	
 }
