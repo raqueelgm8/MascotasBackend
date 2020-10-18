@@ -1,8 +1,12 @@
 package com.init.mascotas.entities;
 
+import java.io.File;
 import java.util.Arrays;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,9 +37,11 @@ public class Animal {
 	@Column(name="TIPOANIMAL")
 	private String tipoAnimal;
 	@Column(name="TIPOEDAD")
-	private String tipoedad;
+	private String tipoEdad;
 	@Column(name="SEXO")
 	private String sexo;
+	@Column(name="ARCHIVOIMAGEN", length = 3000)
+	private String archivoImagen;
 	//bi-directional many-to-one association to Solicitud
 	// @OneToMany(mappedBy="animal")
 	// private List<Solicitud> solicituds;
@@ -95,6 +101,14 @@ public class Animal {
 		return nombre;
 	}
 
+	public String getTipoEdad() {
+		return tipoEdad;
+	}
+
+	public void setTipoEdad(String tipoEdad) {
+		this.tipoEdad = tipoEdad;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -115,18 +129,18 @@ public class Animal {
 		this.tipoAnimal = tipoAnimal;
 	}
 
-	public String getTipoedad() {
-		return tipoedad;
+	public String getArchivoImagen() {
+		return archivoImagen;
 	}
 
-	public void setTipoedad(String tipoedad) {
-		this.tipoedad = tipoedad;
+	public void setArchivoImagen(String archivoImagen) {
+		this.archivoImagen = archivoImagen;
 	}
 
 	@Override
 	public String toString() {
 		return "Animal [idAnimal=" + idAnimal + ", adoptado=" + adoptado + ", descripcion=" + descripcion + ", edad="
-				+ edad + ", imagen=" + Arrays.toString(imagen) + ", nombre=" + nombre + ", raza=" + raza
-				+ ", tipoAnimal=" + tipoAnimal + ", tipoedad=" + tipoedad + "]";
+				+ edad + ", imagen=" + imagen + ", nombre=" + nombre + ", raza=" + raza
+				+ ", tipoAnimal=" + tipoAnimal + ", tipoedad=" + tipoEdad + "]";
 	}
 }
