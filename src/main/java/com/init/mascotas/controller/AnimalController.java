@@ -1,8 +1,5 @@
 package com.init.mascotas.controller;
 
-import java.sql.Blob;
-import java.util.*;
-import javax.sql.rowset.serial.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;

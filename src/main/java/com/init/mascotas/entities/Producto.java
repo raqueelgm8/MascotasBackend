@@ -16,7 +16,7 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_PRODUCTO")
 	private int idProducto;
 
@@ -44,6 +44,9 @@ public class Producto implements Serializable {
 	@Column(name="IMAGEN")
 	@Lob
 	private byte[] imagen;
+	
+	@Column(name="ARCHIVOIMAGEN", length = 3000)
+	private String archivoImagen;
 	// bi-directional many-to-one association to DetallePedido
 	// @OneToMany(mappedBy="producto")
 	// private List<DetallePedido> detallePedidos;
@@ -126,7 +129,13 @@ public class Producto implements Serializable {
 	public void setTipoAnimal(String tipoAnimal) {
 		this.tipoAnimal = tipoAnimal;
 	}
+	public String getArchivoImagen() {
+		return archivoImagen;
+	}
 
+	public void setArchivoImagen(String archivoImagen) {
+		this.archivoImagen = archivoImagen;
+	}
 	/*public List<DetallePedido> getDetallePedidos() {
 		return this.detallePedidos;
 	}
