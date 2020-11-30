@@ -73,8 +73,8 @@ public class SolicitudController {
 	    Solicitud solicitudUpdated = solicitudRepository.save(solicitud);
 	    return solicitudUpdated;
 	}
-	// Editar estado del pedido
-	@PutMapping(value="/updateEstado/{idUsuario}/{idPedido}/{estado}")
+	// Editar estado de la solicitud
+	@PutMapping(value="/updateEstado/{idUsuario}/{idAnimal}/{idSolicitud}/{estado}")
 	@CrossOrigin(origins = "http://localhost:4200")
 	public void updateEstadoSolicitud(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idAnimal") Integer idAnimal ,@PathVariable("idSolicitud") Integer idSolicitud, @PathVariable("estado") String estado) {
 		this.solicitudRepository.updateEstadoSolicitud(idUsuario, idAnimal, idSolicitud, estado);
