@@ -3,13 +3,11 @@ package com.init.mascotas.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import com.init.mascotas.entities.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, CrudRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	@Query(value = "SELECT * FROM USUARIO u WHERE u.email LIKE :email AND "
 			+ "u.password LIKE :pass ORDER BY u.email", nativeQuery = true)

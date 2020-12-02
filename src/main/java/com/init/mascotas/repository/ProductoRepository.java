@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.init.mascotas.entities.Animal;
 import com.init.mascotas.entities.Producto;
 
-public interface ProductoRepository extends JpaRepository<Producto, Integer>, CrudRepository<Producto, Integer>{
+public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 	
 	@Query(value = "SELECT * FROM PRODUCTO p WHERE (:categoria is null or p.categoria LIKE :categoria)"
 			+ "AND (:tipoAnimal is null or p.TIPOANIMAL LIKE :tipoAnimal) "

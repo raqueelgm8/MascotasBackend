@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import com.init.mascotas.entities.Pedido;
 import com.init.mascotas.entities.PedidoPK;
 import org.springframework.transaction.annotation.Transactional;
-public interface PedidoRepository extends JpaRepository<Pedido, PedidoPK>, CrudRepository<Pedido, PedidoPK>{
+public interface PedidoRepository extends JpaRepository<Pedido, PedidoPK>{
 
 	@Query(value = "SELECT * FROM PEDIDO p WHERE p.id_usuario = :idUsuario", nativeQuery = true)
 	List<Pedido> findPedidosUsuario(Integer idUsuario);
