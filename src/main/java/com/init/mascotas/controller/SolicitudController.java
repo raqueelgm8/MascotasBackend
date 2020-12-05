@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.mascotas.entities.Solicitud;
-import com.init.mascotas.entities.SolicitudPK;
 import com.init.mascotas.repository.SolicitudRepository;
 
 @RestController
@@ -33,32 +32,17 @@ public class SolicitudController {
        return this.solicitudRepository.solicitudesPorIdUsuario(idUsuario);
     }
 	@CrossOrigin(origins = "http://localhost:4200")
-	@DeleteMapping("/eliminarSolicitud/{idUsuario}/{idSolicitud}/{idAnimal}")
-    void eliminarSolicitud(@PathVariable(value="idUsuario") Integer idUsuario,
-    							  @PathVariable(value="idSolicitud") Integer idSolicitud,
-    							  @PathVariable(value="idAnimal") Integer idAnimal){
-       SolicitudPK id = new SolicitudPK();
-       id.setIdAnimal(idAnimal);
-       id.setIdSolicitud(idSolicitud);
-       id.setIdUsuario(idUsuario);
-       this.solicitudRepository.deleteById(id);
+	@DeleteMapping("/eliminarSolicitud/{idSolicitud}")
+    void eliminarSolicitud(@PathVariable(value="idSolicitud") Integer idSolicitud){
+       this.solicitudRepository.deleteById(idSolicitud);
     }
-	@RequestMapping(value="/obtenerSolicitudPorId/{idUsuario}/{idSolicitud}/{idAnimal}", method=RequestMethod.GET)
-    public Optional<Solicitud> obtenerSolicitudPorId(@PathVariable(value="idUsuario") Integer idUsuario,
-			  @PathVariable(value="idSolicitud") Integer idSolicitud,
-			  @PathVariable(value="idAnimal") Integer idAnimal){
-		SolicitudPK id = new SolicitudPK();
-        id.setIdAnimal(idAnimal);
-        id.setIdSolicitud(idSolicitud);
-        id.setIdUsuario(idUsuario);
-        return this.solicitudRepository.findById(id);
+	@RequestMapping(value="/obtenerSolicitudPorId/{idSolicitud}", method=RequestMethod.GET)
+    public Optional<Solicitud> obtenerSolicitudPorId(@PathVariable(value="idSolicitud") Integer idSolicitud){
+        return this.solicitudRepository.findById(idSolicitud);
     }
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/guardarSolicitud")
     public Solicitud guardarSolicitud(@RequestBody Solicitud guardarSolicitud){
-		SolicitudPK pk = guardarSolicitud.getId();
-		pk.setIdSolicitud(obtenerUltimoId());
-		guardarSolicitud.setId(pk);
        return solicitudRepository.save(guardarSolicitud);
     }
 	// Último id
@@ -74,11 +58,23 @@ public class SolicitudController {
 	    return solicitudUpdated;
 	}
 	// Editar estado de la solicitud
-	@PutMapping(value="/updateEstado/{idUsuario}/{idAnimal}/{idSolicitud}/{estado}")
+	@PutMapping(value="/updateEstado/{idSolicitud}/{estado}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public void updateEstadoSolicitud(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idAnimal") Integer idAnimal ,@PathVariable("idSolicitud") Integer idSolicitud, @PathVariable("estado") String estado) {
-		this.solicitudRepository.updateEstadoSolicitud(idUsuario, idAnimal, idSolicitud, estado);
+	public void updateEstadoSolicitud(@PathVariable("idSolicitud") Integer idSolicitud, @PathVariable("estado") String estado) {
+		this.solicitudRepository.updateEstadoSolicitud(idSolicitud, estado);
+		Optional<Solicitud> solicitud = this.obtenerSolicitudPorId(idSolicitud);
+		int idAnimal = solicitud.get().getIdAnimal();
+		if (estado.equals("Aceptada")){
+			this.solicitudRepository.updateEstadoSolicitudDenegado(idSolicitud, idAnimal, "Denegada");
+		}
 	}
+	
+	// Devuelve todos las las solicitudes de un animal
+	@RequestMapping(value="/obtenerSolicitudesAnimal/{idAnimal}", method=RequestMethod.GET)
+    public List<Solicitud> obtenerSolicitudesIdAnimal(@PathVariable(value="idAnimal") Integer idAnimal){
+       return this.solicitudRepository.solicitudesPorAnimal(idAnimal);
+    }
+	
 	// Devuelve todos las las solicitudes
 	@RequestMapping(value="solicitudes", method=RequestMethod.GET)
 	public ResponseEntity<List<Solicitud>> getUsuarios() {

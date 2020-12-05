@@ -23,7 +23,6 @@ public class DetallePedido implements Serializable {
 	@ManyToOne
 	@JoinColumns({
 		@JoinColumn(name="ID_PEDIDO", referencedColumnName="ID_PEDIDO", insertable = false, updatable = false),
-		@JoinColumn(name="ID_USUARIO", referencedColumnName="ID_USUARIO", insertable = false, updatable = false),
 		})
 	private Pedido pedido;
 

@@ -14,9 +14,6 @@ public class DetallePedidoPK implements Serializable {
 	@Column(name="ID_PRODUCTO", insertable=false, updatable=false)
 	private int idProducto;
 
-	@Column(name="ID_USUARIO", insertable=false, updatable=false)
-	private int idUsuario;
-
 	@Column(name="ID_PEDIDO", insertable=false, updatable=false)
 	private int idPedido;
 
@@ -27,12 +24,6 @@ public class DetallePedidoPK implements Serializable {
 	}
 	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
-	}
-	public int getIdUsuario() {
-		return this.idUsuario;
-	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
 	}
 	public int getIdPedido() {
 		return this.idPedido;
@@ -51,7 +42,6 @@ public class DetallePedidoPK implements Serializable {
 		DetallePedidoPK castOther = (DetallePedidoPK)other;
 		return 
 			(this.idProducto == castOther.idProducto)
-			&& (this.idUsuario == castOther.idUsuario)
 			&& (this.idPedido == castOther.idPedido);
 	}
 
@@ -59,7 +49,6 @@ public class DetallePedidoPK implements Serializable {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.idProducto;
-		hash = hash * prime + this.idUsuario;
 		hash = hash * prime + this.idPedido;
 		
 		return hash;

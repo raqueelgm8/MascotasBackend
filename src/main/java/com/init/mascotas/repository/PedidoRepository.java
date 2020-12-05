@@ -7,9 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.init.mascotas.entities.Pedido;
-import com.init.mascotas.entities.PedidoPK;
 import org.springframework.transaction.annotation.Transactional;
-public interface PedidoRepository extends JpaRepository<Pedido, PedidoPK>{
+public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 
 	@Query(value = "SELECT * FROM PEDIDO p WHERE p.id_usuario = :idUsuario", nativeQuery = true)
 	List<Pedido> findPedidosUsuario(Integer idUsuario);
@@ -18,7 +17,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, PedidoPK>{
 	Integer obtenerUltimoIdPedido();
 	
 	@Modifying
-	@Query(value = "UPDATE PEDIDO SET ESTADOPEDIDO=:estado WHERE id_usuario = :idUsuario AND id_pedido =:idPedido", nativeQuery = true)
+	@Query(value = "UPDATE PEDIDO SET ESTADOPEDIDO=:estado WHERE id_pedido =:idPedido", nativeQuery = true)
 	@Transactional(rollbackFor=Exception.class)
-	void updateEstado(Integer idUsuario, Integer idPedido, String estado);
+	void updateEstado(Integer idPedido, String estado);
 }

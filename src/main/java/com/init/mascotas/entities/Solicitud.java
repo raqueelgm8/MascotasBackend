@@ -15,9 +15,20 @@ import javax.persistence.*;
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private SolicitudPK id;
-
+	/*@EmbeddedId
+	private SolicitudPK id;*/
+	
+	@Id
+	@Column(name="ID_SOLICITUD")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idSolicitud;
+	
+	@Column(name="ID_ANIMAL")
+	private Integer idAnimal;
+	
+	@Column(name="ID_USUARIO")
+	private Integer idUsuario;
+	
 	@Column(name="ESTADO")
 	private String estado;
 
@@ -74,12 +85,36 @@ public class Solicitud implements Serializable {
 		this.tipoAnimal = tipoAnimal;
 	}
 
-	public SolicitudPK getId() {
-		return this.id;
+	public Integer getIdSolicitud() {
+		return idSolicitud;
 	}
 
-	public void setId(SolicitudPK id) {
-		this.id = id;
+	public void setIdSolicitud(Integer idSolicitud) {
+		this.idSolicitud = idSolicitud;
+	}
+
+	public Integer getIdAnimal() {
+		return idAnimal;
+	}
+
+	public void setIdAnimal(Integer idAnimal) {
+		this.idAnimal = idAnimal;
+	}
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public String getHorarioTrabajo() {
+		return horarioTrabajo;
+	}
+
+	public void setHorarioTrabajo(String horarioTrabajo) {
+		this.horarioTrabajo = horarioTrabajo;
 	}
 
 	public String getEstado() {

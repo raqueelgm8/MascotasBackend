@@ -35,15 +35,13 @@ public class DetallePedidoController {
 		return ResponseEntity.ok(detallesPedido);
 	}
 	// Devuelve todos los detallesPedido
-	@RequestMapping(value="/detallesPedido/{idUsuario}/{idPedido}/{idProducto}", method=RequestMethod.GET)
+	@RequestMapping(value="/detallesPedido/{idPedido}/{idProducto}", method=RequestMethod.GET)
 	public ResponseEntity<DetallePedido> getDetallePedidoId(
-			@PathVariable(value="idUsuario") Integer idUsuario,
 			@PathVariable(value="idPedido") Integer idPedido,
 			@PathVariable(value="idProducto") Integer idProducto) {
 		DetallePedidoPK pk = new DetallePedidoPK();
 		pk.setIdPedido(idPedido);
 		pk.setIdProducto(idProducto);
-		pk.setIdUsuario(idUsuario);
 		Optional<DetallePedido> detallePedido = this.detallePedidoRepository.findById(pk);
 		if (detallePedido.isPresent()) {
 			return ResponseEntity.ok(detallePedido.get());
@@ -52,43 +50,37 @@ public class DetallePedidoController {
 		}
 	}
 	// Devuelve los detalle pedido por idUsuario e idPedido
-	@RequestMapping(value="/detallesPedidoPorPedido/{idUsuario}/{idPedido}", method=RequestMethod.GET)
+	@RequestMapping(value="/detallesPedidoPorPedido/{idPedido}", method=RequestMethod.GET)
 	public List<DetallePedido> findDetallesPorPedido(
-			@PathVariable(value="idUsuario") Integer idUsuario,
 			@PathVariable(value="idPedido") Integer idPedido) {
-			return this.detallePedidoRepository.findDetallesPorPedido(idUsuario, idPedido);
+			return this.detallePedidoRepository.findDetallesPorPedido( idPedido);
 	}
 	// Guardar los Detalle Pedidp
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/guardarDetalles/{idUsuario}/{idPedido}")
+	@PostMapping("/guardarDetalles/{idPedido}")
     public List<DetallePedido> guardarDetalles(
-    		@PathVariable(value="idUsuario") Integer idUsuario,
 			@PathVariable(value="idPedido") Integer idPedido,
     		@RequestBody List<DetallePedido> detallesPedido){
 				if (detallesPedido.size() > 0) {
 					for (DetallePedido detallePedido: detallesPedido) {
 						DetallePedidoPK pk = new DetallePedidoPK();
 						pk.setIdPedido(idPedido);
-						pk.setIdUsuario(idUsuario);
 						pk.setIdProducto(detallePedido.getId().getIdProducto());
 						detallePedido.setId(pk);
 						System.out.println(detallePedido.getId().getIdProducto());
 						restarStock(detallePedido.getId().getIdProducto(), detallePedido.getCantidad());
 						this.detallePedidoRepository.save(detallePedido);
 					}
-					return this.findDetallesPorPedido(idUsuario, idPedido);
+					return this.findDetallesPorPedido(idPedido);
 				} else {
 					return null;
-			}
+				}
 	}
 	// Restar Stock
 		public void restarStock(Integer idProducto, Integer cantidad) {
-			System.out.println("id productooo " + idProducto);
 			Optional<Producto> optionalProduct = productoRepository.findById(idProducto);
 			if (optionalProduct.isPresent()) {
-				System.out.println("he entrado");
 				ResponseEntity<Producto> producto = ResponseEntity.ok(optionalProduct.get());
-				System.out.println(producto.toString());
 				Producto product = producto.getBody();
 				product.setStock(product.getStock() - cantidad);
 				this.productoRepository.save(product);

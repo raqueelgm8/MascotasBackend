@@ -16,9 +16,14 @@ import java.util.List;
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PedidoPK id;
+	@Id
+	@Column(name="ID_PEDIDO")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idPedido;
 
+	@Column(name="ID_USUARIO")
+	private Integer idUsuario;
+	
 	@Column(name="APELLIDOS")
 	private String apellidos;
 
@@ -53,25 +58,32 @@ public class Pedido implements Serializable {
 	@Column(name="ESTADOPEDIDO")
 	private String estadoPedido;
 	
-	
-	//bi-directional many-to-one association to DetallePedido
-	/*@OneToMany(mappedBy="pedido")
-	private List<DetallePedido> detallePedidos;*/
-
-	//bi-directional many-to-one association to Usuario
-	/*@ManyToOne
-	@JoinColumn(name="ID_USUARIO", insertable = false, updatable = false)
-	private Usuario usuario;*/
 
 	public Pedido() {
 	}
-
-	public PedidoPK getId() {
-		return this.id;
+	
+	public Integer getIdPedido() {
+		return idPedido;
 	}
 
-	public void setId(PedidoPK id) {
-		this.id = id;
+	public void setIdPedido(Integer idPedido) {
+		this.idPedido = idPedido;
+	}
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+
+	public void setMetodoPago(String metodoPago) {
+		this.metodoPago = metodoPago;
 	}
 
 	public String getApellidos() {
@@ -165,35 +177,5 @@ public class Pedido implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	/*
-	public List<DetallePedido> getDetallePedidos() {
-		return this.detallePedidos;
-	}
-
-	public void setDetallePedidos(List<DetallePedido> detallePedidos) {
-		this.detallePedidos = detallePedidos;
-	}
-*/
-	/*public DetallePedido addDetallePedido(DetallePedido detallePedido) {
-		getDetallePedidos().add(detallePedido);
-		detallePedido.setPedido(this);
-
-		return detallePedido;
-	}
-
-	public DetallePedido removeDetallePedido(DetallePedido detallePedido) {
-		getDetallePedidos().remove(detallePedido);
-		detallePedido.setPedido(null);
-
-		return detallePedido;
-	}*/
-/*
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}*/
 
 }

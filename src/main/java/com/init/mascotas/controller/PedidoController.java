@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.init.mascotas.controller.PedidoController;
 import com.init.mascotas.entities.Pedido;
-import com.init.mascotas.entities.PedidoPK;
 import com.init.mascotas.repository.PedidoRepository;
 
 @RestController
@@ -30,12 +29,9 @@ public class PedidoController {
 	private PedidoRepository pedidoRepository;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(value="/getPedido/{idUsuario}/{idPedido}", method=RequestMethod.GET)
-	public ResponseEntity<Pedido> getProductoById(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idPedido") Integer idPedido) {
-		PedidoPK pk = new PedidoPK(idUsuario, idPedido);
-		pk.setIdPedido(idPedido);
-		pk.setIdUsuario(idUsuario);
-		Optional<Pedido> optionalPedido = pedidoRepository.findById(pk);
+	@RequestMapping(value="/getPedido/{idPedido}", method=RequestMethod.GET)
+	public ResponseEntity<Pedido> getProductoById(@PathVariable("idPedido") Integer idPedido) {
+		Optional<Pedido> optionalPedido = pedidoRepository.findById(idPedido);
 		if (optionalPedido.isPresent()) {
 			return ResponseEntity.ok(optionalPedido.get());
 		} else {
@@ -44,11 +40,8 @@ public class PedidoController {
 	}
 	@DeleteMapping(value="/eliminarPedido/{idUsuario}/{idPedido}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public void eliminarPedido(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idPedido") Integer idPedido){
-		PedidoPK pk = new PedidoPK(idUsuario, idPedido);
-		pk.setIdPedido(idPedido);
-		pk.setIdUsuario(idUsuario);
-		this.pedidoRepository.deleteById(pk);
+	public void eliminarPedido( @PathVariable("idPedido") Integer idPedido){
+		this.pedidoRepository.deleteById(idPedido);
 	}
 	@GetMapping("/pedidos")
 	public List<Pedido> findAllPedidos() {
@@ -63,14 +56,9 @@ public class PedidoController {
 	@PostMapping("/guardarPedido/{idUsuario}")
     public Pedido guardarPedido(
     		@PathVariable("idUsuario") Integer idUsuario,
-    		@RequestBody Pedido guardarPedido){
-		PedidoPK pk = new PedidoPK();
-		// guardarPedido.setMetodopago("PayPal");
-		Integer ultimoIdPedido = this.obtenerUltimoId() + 1;
-		pk.setIdPedido(ultimoIdPedido);
-		pk.setIdUsuario(idUsuario);
-		guardarPedido.setId(pk);
-       return pedidoRepository.save(guardarPedido);
+    		@RequestBody Pedido guardarPedido) {
+		guardarPedido.setIdUsuario(idUsuario);
+		return pedidoRepository.save(guardarPedido);
        
     }
 	// Editar Pedido por id
@@ -85,9 +73,9 @@ public class PedidoController {
 		return pedidoRepository.obtenerUltimoIdPedido();
 	}
 	// Editar estado del pedido
-	@PutMapping(value="/updateEstado/{idUsuario}/{idPedido}/{estado}")
+	@PutMapping(value="/updateEstado/{idPedido}/{estado}")
 	@CrossOrigin(origins = "*", methods= {RequestMethod.PUT,RequestMethod.PUT})
-	public void updateEstado(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idPedido") Integer idPedido, @PathVariable("estado") String estado) {
-		this.pedidoRepository.updateEstado(idUsuario, idPedido, estado);
+	public void updateEstado(@PathVariable("idPedido") Integer idPedido, @PathVariable("estado") String estado) {
+		this.pedidoRepository.updateEstado(idPedido, estado);
 	}
 }

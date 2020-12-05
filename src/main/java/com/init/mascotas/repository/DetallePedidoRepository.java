@@ -9,7 +9,6 @@ import com.init.mascotas.entities.DetallePedido;
 import com.init.mascotas.entities.DetallePedidoPK;
 
 public interface DetallePedidoRepository extends JpaRepository<DetallePedido, DetallePedidoPK> {
-	@Query(value = "SELECT * FROM DETALLE_PEDIDO p WHERE p.id_usuario = :idUsuario "
-			+ "AND p.id_pedido = :idPedido", nativeQuery = true)
-	List<DetallePedido> findDetallesPorPedido(Integer idUsuario, Integer idPedido);
+	@Query(value = "SELECT * FROM DETALLE_PEDIDO p WHERE p.id_pedido = :idPedido", nativeQuery = true)
+	List<DetallePedido> findDetallesPorPedido(Integer idPedido);
 }
